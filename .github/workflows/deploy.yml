@@ -1,3 +1,36 @@
+# # 워크플로우
+# name: Github Actions 실행시켜보기
+
+# on: 
+#   push:
+#     branches:
+#       - main
+# # 워크플로우는 여러 개의 job으로 이루어질 수 있고
+# jobs:
+#   My-Deploy-Job:
+#     runs-on: ubuntu-latest
+# # 하나의 job은 여러 개의 step으로 이루어져 있다.
+# # main이라는 브랜치에 push되면 아래의 "Hello World" 작업을 실행시키란 의미
+#     steps:
+#       - name: Hello World 출력하기
+#         run: echo "Hello World"
+
+#       - name: 여러 명령어 문장 작성하기
+#         run: |
+#           echo "Good"
+#           echo "Morning"
+#           pwd
+
+#       - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
+#         run: |
+#           echo $GITHUB_REPOSITORY
+#           echo $GITHUB_SHA
+
+#       - name: Github Actions Secret 변수 사용해보기 
+#         run: |
+#           echo ${{ secrets.MY_NAME }}
+#           echo ${{ secrets.MY_HOBBY }}
+
 name: Deploy To S3 Invalidate Cloudfront
 
 on: 
@@ -21,9 +54,6 @@ jobs:
       - name: 빌드하기
         run: npm run build
 
-      - name: AWS 자격 증명 확인
-        run: aws sts get-caller-identity
-
       - name: AWS Resource에 접근할 수 있게 AWS 인증 설정
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -40,3 +70,4 @@ jobs:
 
       - name: Cloudfront 캐시 무효화
         run: aws cloudfront create-invalidate --distribution-id E2NHP90ZK9SYJV --paths "/*"
+          
