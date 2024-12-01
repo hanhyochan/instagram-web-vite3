@@ -66,7 +66,7 @@ jobs:
           aws s3 rm --recursive s3://instagram-web33  
 
       - name: s3에 빌드된 파일 업로드하기
-        run: aws s3 cp ./dist s3://instagram-web33/ --recursive  
+        run: aws s3 cp ./dist s3://instagram-web33/ --recursive   
 
       - name: Cloudfront 캐시 무효화
         run: aws cloudfront create-invalidate --distribution-id E2NHP90ZK9SYJV --paths "/*"
